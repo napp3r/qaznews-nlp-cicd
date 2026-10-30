@@ -45,7 +45,7 @@ def latin_to_cyrillic(text: str) -> str:
 
 def normalize(text: str) -> str:
     """Lower-case, drop URLs and punctuation, and unify the Kazakh script."""
-    cleaned = _URL.sub(" ", text.lower().replace("ё", "е"))
+    cleaned = _URL.sub(" ", text.replace("ё", "е"))
     if is_kazakh_latin(cleaned):
         cleaned = latin_to_cyrillic(cleaned)
     cleaned = _NON_WORD.sub(" ", cleaned)
