@@ -30,6 +30,7 @@ def test_version_exposes_model_provenance(client):
         ("Сборная выиграла матч и вышла в финал", "ru", "sport"),
         ("Үкімет жаңа заң жобасын мақұлдады", "kk", "politics"),
         ("Теңге бағамы мен инфляция банктер үшін маңызды", "kk", "economy"),
+        ("Mäjilis jaña zañ jobasyn maqūldady", "kk", "politics"),
     ],
 )
 def test_predict_returns_language_and_topic(client, text, language, topic):
