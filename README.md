@@ -52,7 +52,7 @@ cp .env.example .env                     # set JENKINS_ADMIN_PASSWORD
 docker compose up -d --build
 ```
 
-Open <http://localhost:8080>, log in as `admin` and run the `qaznews-nlp` job once. The first
+Open <http://localhost:8090>, log in as `admin` and run the `qaznews-nlp` job once. The first
 run registers the polling trigger from the `Jenkinsfile`; later commits start builds on their own.
 To enable the push stage, set `DOCKERHUB_ENABLED=true` and the two `DOCKERHUB_*` values in `.env`.
 
