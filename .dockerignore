@@ -1,0 +1,14 @@
+.git
+.gitignore
+.dockerignore
+.ruff_cache
+.pytest_cache
+__pycache__
+*.pyc
+artifacts
+reports
+jenkins
+k8s
+Dockerfile
+Jenkinsfile
+README.md

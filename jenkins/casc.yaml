@@ -1,0 +1,42 @@
+jenkins:
+  systemMessage: "QazNews-NLP CI/CD server. Configured as code, see jenkins/casc.yaml."
+  numExecutors: 2
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: admin
+          password: ${JENKINS_ADMIN_PASSWORD}
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+unclassified:
+  location:
+    url: http://localhost:8080/
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: dockerhub
+              description: Docker Hub access token
+              username: ${DOCKERHUB_USERNAME:-none}
+              password: ${DOCKERHUB_TOKEN:-none}
+jobs:
+  - script: |
+      pipelineJob('qaznews-nlp') {
+        description('CI/CD pipeline of the QazNews-NLP research prototype')
+        definition {
+          cpsScm {
+            lightweight(false)
+            scriptPath('Jenkinsfile')
+            scm {
+              git {
+                remote { url('https://github.com/napp3r/qaznews-nlp-cicd.git') }
+                branch('**')
+              }
+            }
+          }
+        }
+      }

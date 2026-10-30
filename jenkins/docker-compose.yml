@@ -1,0 +1,34 @@
+services:
+  jenkins:
+    build: .
+    image: qaznews-jenkins:local
+    container_name: qaznews-jenkins
+    restart: unless-stopped
+    # The Docker socket is owned by root:root, group 0 lets the jenkins user reach it.
+    group_add:
+      - "0"
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      JAVA_OPTS: "-Xmx640m -Djenkins.install.runSetupWizard=false"
+      CASC_JENKINS_CONFIG: /usr/share/jenkins/ref/casc.yaml
+      KUBECONFIG: /run/qaznews/kubeconfig
+      JENKINS_ADMIN_PASSWORD: ${JENKINS_ADMIN_PASSWORD:?set it in jenkins/.env}
+      DOCKERHUB_USERNAME: ${DOCKERHUB_USERNAME:-}
+      DOCKERHUB_TOKEN: ${DOCKERHUB_TOKEN:-}
+      DOCKERHUB_ENABLED: ${DOCKERHUB_ENABLED:-false}
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./kubeconfig:/run/qaznews/kubeconfig:ro
+    networks:
+      - default
+      - kind
+
+volumes:
+  jenkins_home:
+
+networks:
+  # Created by kind; the Jenkins container reaches the cluster API through it.
+  kind:
+    external: true

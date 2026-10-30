@@ -1,0 +1,17 @@
+[project]
+name = "qaznews-nlp"
+version = "0.1.0"
+description = "Bilingual Kazakh-Russian news topic classifier with a CI/CD pipeline"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "--cov=qaznews --cov-report=term-missing --cov-fail-under=85"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
