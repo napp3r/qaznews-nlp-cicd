@@ -8,3 +8,8 @@ artifacts/
 reports/
 jenkins/.env
 jenkins/kubeconfig
+
+# Local agent tooling state
+.claude-flow/
+.swarm/
+ruvector.db
